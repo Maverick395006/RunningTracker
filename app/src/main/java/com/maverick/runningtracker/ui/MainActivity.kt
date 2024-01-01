@@ -1,8 +1,9 @@
-package com.maverick.runningtracker
+package com.maverick.runningtracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.maverick.runningtracker.R
 import com.maverick.runningtracker.db.RunDAO
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        Log.d("runDao","${runDAO.hashCode()} + DONE")
+        Log.d("runDao","${runDAO.hashCode()}")
 
     }
 
