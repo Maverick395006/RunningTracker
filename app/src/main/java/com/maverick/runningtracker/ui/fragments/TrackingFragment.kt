@@ -81,7 +81,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
     }
 
     private fun moveCameraToUser() {
-        if (pathPoints.isNotEmpty() && pathPoints.last().isEmpty()) {
+        if (pathPoints.isNotEmpty() && pathPoints.last().isNotEmpty()) {
             map?.animateCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     pathPoints.last().last(),
