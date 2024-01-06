@@ -18,10 +18,12 @@ import com.maverick.runningtracker.util.Constants.ACTION_START_OR_RESUME_SERVICE
 import com.maverick.runningtracker.util.Constants.MAP_ZOOM
 import com.maverick.runningtracker.util.Constants.POLYLINE_COLOR
 import com.maverick.runningtracker.util.Constants.POLYLINE_WIDTH
+import com.maverick.runningtracker.util.TrackingUtility
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracking.btnFinishRun
 import kotlinx.android.synthetic.main.fragment_tracking.btnToggleRun
 import kotlinx.android.synthetic.main.fragment_tracking.mapView
+import kotlinx.android.synthetic.main.fragment_tracking.tvTimer
 
 @AndroidEntryPoint
 class TrackingFragment : Fragment(R.layout.fragment_tracking) {
@@ -32,6 +34,8 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
     private var pathPoints = mutableListOf<Polyline>()
 
     private var map: GoogleMap? = null
+
+    private var curTimeInMillis = 0L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +62,11 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             pathPoints = it
             addLatestPolyline()
             moveCameraToUser()
+        })
+        TrackingService.timeRunInMillis.observe(viewLifecycleOwner, Observer {
+            curTimeInMillis = it
+            val formattedTime = TrackingUtility.getFormattedStopWatchTime(curTimeInMillis, true)
+            tvTimer.text = formattedTime
         })
     }
 
